@@ -1,7 +1,9 @@
 package com.etnetera.hr.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.etnetera.hr.data.JavaScriptFramework;
@@ -55,8 +57,13 @@ public class JavaScriptFrameworkController {
     }
 
     @DeleteMapping("/delete-by-id")
-    public void deleteById(long javaScriptFrameworkId) {
-        repository.deleteById(javaScriptFrameworkId);
+    public ResponseEntity deleteById(long javaScriptFrameworkId) {
+        try{
+            repository.deleteById(javaScriptFrameworkId);
+            return new ResponseEntity(HttpStatus.OK);
+        }catch(EmptyResultDataAccessException ex){
+            return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
+        }
     }
 
 }

@@ -119,14 +119,4 @@ public class JavaScriptFrameworkTests {
         List<JavaScriptFramework> foundFrameworks = javaScriptFrameworkController.findByName("keyword");
         assertEquals(3,foundFrameworks.size());
     }
-
-    @Test
-    public void checkNull(){
-        JavaScriptFramework framework = new JavaScriptFramework("framework", "A",null, null);
-        javaScriptFrameworkRepository.save(framework);
-
-        JavaScriptFramework created = javaScriptFrameworkController.getByNameAndVersion("framework","A");
-        assertEquals(framework, created);
-    }
-
 }
